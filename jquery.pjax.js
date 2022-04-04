@@ -5,7 +5,7 @@
  */
 
 (function($){
-
+  var isAutoContainer = false;
 // When called on a container with a selector, fetches the href with
 // ajax into the container or with the data-pjax attribute on the link
 // itself.
@@ -43,6 +43,11 @@ function fnPjax(selector, container, options) {
       if (!opts.container) {
           opts = $.extend({history: true}, options)
           opts.container = $(this).attr('data-pjax')
+      }
+      if(isAutoContainer || opts.container === 'auto-definition'){
+          isAutoContainer = true;
+          var pj_container_id = $(event.currentTarget).closest('.pjax_wrap').find('.pjax_container').attr('id');
+          opts.container = '#' + pj_container_id;
       }
       handleClick(event, opts)
   }
@@ -363,7 +368,7 @@ function pjax(options) {
     executeScriptTags(container.scripts, context)
     loadLinkTags(container.links)
 
-    
+
     if (typeof options.scrollTo === 'function') {
         var scrollTo = options.scrollTo(context, hash)
     } else {
@@ -378,9 +383,9 @@ function pjax(options) {
 
     if (typeof options.scrollOffset === 'function')
         var scrollOffset = options.scrollOffset(scrollTo)
-    else 
+    else
         var scrollOffset = options.scrollOffset
-    
+
     if (typeof scrollTo === 'number') {
         scrollTo = scrollTo + scrollOffset;
         if (scrollTo < 0) scrollTo = 0
