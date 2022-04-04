@@ -2,7 +2,7 @@
   "name": "yii2-pjax",
   "version": "2.0.8",
   "main": "jquery.pjax.js",
-  "repository": "yiisoft/jquery-pjax",
+  "repository": "i-wild-wolf/yii2_pjax",
   "licenses": [
     {
       "type": "MIT",
